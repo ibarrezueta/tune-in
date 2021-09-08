@@ -18,11 +18,9 @@ const transporter = nodemailer.createTransport(credentials);
 
 // exporting an 'async' function here allows 'await' to be used
 // as the return value of this function.
-export default async (userInfo) => {
-    console.log('This is what i\'m getting for email: ', userInfo.email);
-    console.log('this is what I\'m getting for _id: ', userInfo._id);
+export default async (host, userInfo) => {
+    const url = host+'/api/email/validate/'+userInfo._id
     const content = 
-
         {
             subject: 'React Confirm Email',
             html: `
@@ -39,7 +37,7 @@ export default async (userInfo) => {
                         Next step is super easy - just click the buttom below - please note the button only remains magic for 30 minutes.
                     </p>
 
-                    <button><a href=${'/api/email/validate/'+ userInfo._id}>Click Here to Activate</a></button>
+                    <button><a href=${url}>Click Here to Activate</a></button>
                     <p>Looking forward to seeing you on TuneIn!</p>
                     <p> 🎉 Cheers,</p>
                     <p> TuneIn Team</p>

@@ -8,7 +8,8 @@ export default async function handler(req, res) {
         if (isNewEmail) {
             saveUser(req.body).then(response => {
                 try {
-                    sendEmail(response.ops[0]);
+                    const host = req.rawHeaders[1];
+                    sendEmail(host, response.ops[0]);
                 } catch (error) {
                     console.log('This is the error: ', error);
                 }

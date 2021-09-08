@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { getUserById } from '../../../repository/UserRepository';
 import Image from 'next/image';
+import Link from 'next/link'
 
 const ValidationPage = ({userInfo}) => {
     const router = useRouter();
     const { id } = router.query;
     return (
         <div style={{color: 'gray', maxWidth: 400, margin: '10px auto', padding: '10px 10px', border: '#993399 solid 1px', borderRadius: 10}}>
-            <h1 style={{textAlign: 'center', color: '#993399'}}> Great, Now verify your email {userInfo.firstName} </h1>
+            <h1 style={{textAlign: 'center', color: '#993399'}}> Great! Now verify your email, {userInfo.firstName} </h1>
             <div
                 style={{
                     display: 'flex',
@@ -27,7 +28,7 @@ const ValidationPage = ({userInfo}) => {
                 <b>Didn&apos;t see an email?</b> Check your spam folder.
             </p>
             <p>
-                Link Expired?<a href={'/api/email/validate/'+id}>Resend verification email</a>
+                Link Expired? <Link href={'/api/email/validate/' + id}><a>Resend verification email</a></Link>
             </p>
             <style jsx global>{`
                 body {
