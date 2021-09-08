@@ -2,29 +2,52 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { getUserById } from '../../../repository/UserRepository';
-
+import Image from 'next/image';
 
 const ValidationPage = ({userInfo}) => {
     const router = useRouter();
     const { id } = router.query;
     return (
-        <div style={{color: 'gray', maxWidth: 400, margin: '10px auto', padding: '10px 10px', border: 'rgb(200,100,100) solid 1px', borderRadius: 10}}>
-            <h1 style={{textAlign: 'center', color: 'rgb(200, 100, 100)'}}> Welcome Aboard {userInfo.firstName} </h1> 
+        <div style={{color: 'gray', maxWidth: 400, margin: '10px auto', padding: '10px 10px', border: '#993399 solid 1px', borderRadius: 10}}>
+            <h1 style={{textAlign: 'center', color: '#993399'}}> Great, Now verify your email {userInfo.firstName} </h1>
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    margin: '30px auto'
+                }}
+            >
+                <Image src="/emailConfirmationIcon.png" alt="Email Confirmation Icon" width="204" height="124" />
+            </div>
             <p>
-                Happy to see you here.
-                You have joined a community with likeminded fold and extensive resources.
+                Check your inbox at <b>{userInfo.email}</b> and click the verification link inside to complete your registration.
+                This link will expire shortly, so verify soon!
             </p>
             <p>
-                There are many people like you who are looking for other musicians and spaces here on TuneIn. Ping us if you ever need anything.
+                <b>Didn&apos;t see an email?</b> Check your spam folder.
             </p>
             <p>
-                Next step is super easy - just click the buttom below - please note the button only remains magic for 30 minutes.
+                Link Expired?<a href={'/api/email/validate/'+id}>Resend verification email</a>
             </p>
+            <style jsx global>{`
+                body {
+                    height: 100%;
+                    background: linear-gradient(90deg, #B9B6ff 25%, #FEFEFE 25%);
+                }
+                a {
+                    color: purple
+                }
 
-            <button><a href={'/api/email/validate/'+id}>Click Here to Activate</a></button>
-            <p>Looking forward to seeing you on TuneIn!</p>
-            <p> 🎉 Cheers,</p>
-            <p> TuneIn Team</p>
+                h1 {
+                    font-size: 1.3rem;
+                }
+                img {
+                    margin: 30px auto;
+                }
+                p {
+                    line-height: 1.75;
+                }
+            `}</style>
         </div>
     );
 };
