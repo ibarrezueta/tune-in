@@ -27,7 +27,7 @@ const ValidationPage = ({userInfo}) => {
                     margin: '10px auto'
                 }}
             >
-                <Button variant="text"><Link href='/signup'>Continue</Link></Button>
+                <Button variant="text"><Link href='/'>Continue</Link></Button>
             </div>
             
             <style jsx global>{`
