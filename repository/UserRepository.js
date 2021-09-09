@@ -21,6 +21,17 @@ export const getUsersByEmail = async (email) => {
     return users;
 };
 
+export const updateEmailValidationStatusForUser = async (userId) => {
+    const connection = await connectToDatabase;
+    const db = connection.db('usersdb');
+    var o_id = new mongo.ObjectID(userId);
+    const newEmailStatus = { $set: {emailValidated: true } };
+    const user = await db
+        .collection('usersdb')
+        .updateOne({_id: o_id}, newEmailStatus);
+    return user;
+};
+
 export const getUserById = async (userId) => {
     const connection  = await connectToDatabase;
     const db = connection.db('usersdb');
