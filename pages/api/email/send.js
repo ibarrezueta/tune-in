@@ -1,28 +1,22 @@
 const nodemailer = require('nodemailer');
 
-// The credentials for the email account you want to send mail from. 
 const credentials = {
     host: 'smtp.gmail.com',
     port: 465,
     secure: true,
     auth: {
-    // These environment variables will be pulled from the .env file
         user: process.env.MAIL_USER, 
         pass: process.env.MAIL_PASS  
     }
 };
 
-// Getting Nodemailer all setup with the credentials for when the 'sendEmail()'
-// function is called.
 const transporter = nodemailer.createTransport(credentials);
 
-// exporting an 'async' function here allows 'await' to be used
-// as the return value of this function.
 export default async (host, userInfo) => {
-    const url = host+'/api/email/validate/'+userInfo._id
+    const url = host+'/api/email/validate/'+userInfo._id;
     const content = 
         {
-            subject: 'React Confirm Email',
+            subject: 'Welcome To TuneIn!',
             html: `
                 <div style="color:gray;max-width:400px;margin:10px auto;padding:10px 10px;border:rgb(200,100,100) solid 1px; border-radius: 10">
                     <h1 style="text-align:center;color:rgb(200, 100, 100)"> Welcome Aboard ${userInfo.firstName} </h1> 
@@ -37,7 +31,7 @@ export default async (host, userInfo) => {
                         Next step is super easy - just click the buttom below - please note the button only remains magic for 30 minutes.
                     </p>
 
-                    <button><a href=${url}>Click Here to Activate</a></button>
+                    <a style="background-color: #c86464;color: white;padding: 15px 25px;text-decoration: none;"href=${url}>Click Here to Activate</a>
                     <p>Looking forward to seeing you on TuneIn!</p>
                     <p> 🎉 Cheers,</p>
                     <p> TuneIn Team</p>
@@ -58,16 +52,7 @@ export default async (host, userInfo) => {
     // be passed to Nodemailer.
     const email = Object.assign({}, content, contacts);
   
-    // This file is imported into the controller as 'sendEmail'. Because 
-    // 'transporter.sendMail()' below returns a promise we can write code like this
-    // in the contoller when we are using the sendEmail() function.
-    //
-    //  sendEmail()
-    //   .then(() => doSomethingElse())
-    // 
-    // If you are running into errors getting Nodemailer working, wrap the following 
-    // line in a try/catch. Most likely is not loading the credentials properly in 
-    // the .env file or failing to allow unsafe apps in your gmail settings.
+  
     await transporter.sendMail(email);
 
 };

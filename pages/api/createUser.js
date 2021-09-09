@@ -4,7 +4,7 @@ import sendEmail from './email/send';
 
 export default async function handler(req, res) {
     // Check that email isn't already used
-    console.log("Trying this...", req.headers.host)
+    console.log('Trying this...', req.headers.host);
     isNewEmail(req.body.email).then(isNewEmail => {
         if (isNewEmail) {
             saveUser(req.body).then(response => {
