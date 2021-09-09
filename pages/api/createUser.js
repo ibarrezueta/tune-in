@@ -4,12 +4,12 @@ import sendEmail from './email/send';
 
 export default async function handler(req, res) {
     // Check that email isn't already used
-    console.log("This is the req body: ", req)
+    console.log("Trying this...", req.headers.host)
     isNewEmail(req.body.email).then(isNewEmail => {
         if (isNewEmail) {
             saveUser(req.body).then(response => {
                 try {
-                    const host = req.rawHeaders[1];
+                    const host = req.headers.host;
                     sendEmail(host, response.ops[0]);
                 } catch (error) {
                     console.log('This is the error: ', error);
