@@ -13,7 +13,7 @@ const credentials = {
 const transporter = nodemailer.createTransport(credentials);
 
 export default async (host, userInfo) => {
-    const url = host+'/api/email/validate/'+userInfo._id;
+    const url = host+'/email/validate/'+userInfo._id;
     const content = 
         {
             subject: 'Welcome To TuneIn!',
