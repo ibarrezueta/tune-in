@@ -38,7 +38,10 @@ export default function FormPropsTextFields() {
         }).then(res => {
             res.json().then(body => {
                 if (body.isNewEmail) {
-                    router.push('/email/validate/' + body.confirmationURL);
+                    router.push({
+                        pathname: '/email/validate/validate',
+                        query: { id: body.confirmationURL },
+                    });
                     console.log('TRUE');
                 } else {
                     setEmailError(true);
