@@ -9,6 +9,7 @@
 /coverage
 
 # next.js
+.next/
 /out/
 
 # production
@@ -34,3 +35,5 @@ yarn-error.log*
 !.elasticbeanstalk/*.global.yml
 
 https_cert/*
+
+server.js
