@@ -6,6 +6,7 @@ import { ServerStyleSheets } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../styles/theme';
 import '../styles/globals.css'
+import { SessionProvider } from "next-auth/react";
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
@@ -25,7 +26,9 @@ export default function MyApp(props) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Component {...pageProps} />
+        <SessionProvider session={pageProps.session}>
+          <Component {...pageProps} />
+        </SessionProvider>
       </ThemeProvider>
     </React.Fragment>
   );

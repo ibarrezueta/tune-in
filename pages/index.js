@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Image from 'next/image';
-import Link from 'next/link';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 function ButtonAppBar() {
     const classes = useStyles();
+    const { data: session, loading } = useSession();
 
     return (
         <div className={classes.root}>
@@ -38,7 +39,9 @@ function ButtonAppBar() {
                     <Typography variant="h6" className={classes.title}>
                       TuneIn
                     </Typography>
-                    <Button color="inherit" variant='outlined'><Link href='/signup'>Sign Up</Link></Button>
+                    {loading && <p>Loading..</p>}
+                    {!session && <Button color="inherit" variant='outlined' onClick={()=>signIn('google', { callbackUrl: 'https://localhost:3000/' })}>Log In</Button>}
+                    {session && <Button color="inherit" variant='outlined' onClick={()=>signOut()}>Log Out</Button>}
                 </Toolbar>
             </AppBar>
         </div>
@@ -46,6 +49,7 @@ function ButtonAppBar() {
 }
 
 export default function Home() {
+    const { data: session } = useSession();
     return (<>
         <ButtonAppBar/>
         <div className="container">
@@ -53,11 +57,19 @@ export default function Home() {
                 <title>TuneIn Dashboard</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div style={{width:'100vw', height:'auto'}} display='block'><Image src='/musicStudio.jpg' height='400' width='800' layout='responsive'/></div>
+            <div style={{width:'100vw', height:'auto'}} display='block'>
+                <Image 
+                    alt='Photo of an empty music studio'
+                    src='/musicStudio.jpg'
+                    height='400'
+                    width='800'
+                    layout='responsive'
+                />
+            </div>
             
             <main>
                 <h1 className="title">
-          Welcome to TuneIn!
+          Welcome to TuneIn {session?.user ? session.user.name: ''}!
                 </h1>
 
                 
