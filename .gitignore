@@ -9,7 +9,7 @@
 /coverage
 
 # next.js
-.next/
+/.next/
 /out/
 
 # production
@@ -36,4 +36,5 @@ yarn-error.log*
 
 https_cert/*
 
-server.js
+/server.js
+/https_cert/
