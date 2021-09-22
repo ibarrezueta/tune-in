@@ -40,7 +40,7 @@ function ButtonAppBar() {
                       TuneIn
                     </Typography>
                     {loading && <p>Loading..</p>}
-                    {!session && <Button color="inherit" variant='outlined' onClick={()=>signIn('google', { callbackUrl: 'https://localhost:3000/' })}>Log In</Button>}
+                    {!session && <Button color="inherit" variant='outlined' onClick={()=>signIn('google', { callbackUrl: process.env.VERCEL_URL })}>Log In</Button>}
                     {session && <Button color="inherit" variant='outlined' onClick={()=>signOut()}>Log Out</Button>}
                 </Toolbar>
             </AppBar>
