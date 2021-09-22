@@ -7,6 +7,9 @@ export default async (req, res) => {
         const users = await getAllUsers();
         res.json(users);
     }
-    res.json({message: 'mind yo business'});
+    else {
+        res.json({message: 'mind yo business'});
+    }
+    
     
 };
